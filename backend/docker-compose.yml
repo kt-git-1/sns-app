@@ -1,0 +1,42 @@
+services:
+  db:
+    image: postgres:16
+    container_name: my-sns-postgres
+    restart: unless-stopped # PC再起動後も自動復帰
+    ports:
+      - "${POSTGRES_PORT:-5432}:5432"
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB}
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_INITDB_ARGS: "--encoding=UTF8 --locale=C"
+      TZ: ${POSTGRES_TIMEZONE}
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    networks:
+      - sns-net
+
+  pgadmin:
+    image: dpage/pgadmin4
+    container_name: my-sns-pgadmin
+    restart: unless-stopped
+    depends_on:
+      db:
+        condition: service_healthy
+    ports:
+      - "${PGADMIN_PORT:-5050}:80"
+    environment:
+      PGADMIN_DEFAULT_EMAIL: ${PGADMIN_EMAIL}
+      PGADMIN_DEFAULT_PASSWORD: ${PGADMIN_PASSWORD}
+      TZ: ${POSTGRES_TIMEZONE}
+    volumes:
+      - pgadmin:/var/lib/pgadmin
+    networks:
+      - sns-net
+
+networks:
+  sns-net:
+
+volumes:
+  pgdata:
+  pgadmin:

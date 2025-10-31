@@ -1,0 +1,19 @@
+spring:
+  application:
+    name: sns-app
+  datasource:
+    url: jdbc:postgresql://localhost:${POSTGRES_PORT:5432}/${POSTGRES_DB:sns_db}
+    username: ${POSTGRES_USER:sns_user}
+    password: ${POSTGRES_PASSWORD:sns_pass}
+  jpa:
+    hibernate:
+      ddl-auto: validate
+    properties:
+      hibernate.jdbc.time_zone: UTC
+      hibernate.format_sql: true
+  flyway:
+    enabled: true
+    locations: classpath:db/migration
+
+server:
+  port: 8080

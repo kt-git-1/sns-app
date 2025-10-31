@@ -1,0 +1,10 @@
+spring:
+  config:
+    import: optional:file:.env.local
+  jpa:
+    show-sql: true
+logging:
+  level:
+    org.springframework.jdbc.core: INFO
+    org.hibernate.SQL: INFO
+    org.hibernate.orm.jdbc.bind: INFO
