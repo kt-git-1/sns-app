@@ -13,6 +13,11 @@ services:
       TZ: ${POSTGRES_TIMEZONE}
     volumes:
       - pgdata:/var/lib/postgresql/data
+    healthcheck: # 起動直後の接続失敗を避けるためのヘルスチェック
+      test: [ "CMD-SHELL", "pg_isready -U ${POSTGRES_USER} -d ${POSTGRES_DB}" ]
+      interval: 5s
+      timeout: 3s
+      retries: 10
     networks:
       - sns-net
 
