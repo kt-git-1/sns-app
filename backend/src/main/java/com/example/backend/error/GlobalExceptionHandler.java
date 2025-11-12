@@ -42,7 +42,7 @@ public class GlobalExceptionHandler {
                 err.code().toLowerCase()                 // type suffix
         );
         return ResponseEntity.status(err.status())
-                .contentType(MediaType.APPLICATION_PROBLEM_JSON)
+                .contentType(MediaType.APPLICATION_JSON)
                 .body(pd);
     }
 
@@ -64,7 +64,7 @@ public class GlobalExceptionHandler {
         );
         problem.withProperty(pd, "errors", fields);
         return ResponseEntity.badRequest()
-                .contentType(MediaType.APPLICATION_PROBLEM_JSON)
+                .contentType(MediaType.APPLICATION_JSON)
                 .body(pd);
     }
 
@@ -87,7 +87,7 @@ public class GlobalExceptionHandler {
         );
         problem.withProperty(pd, "errors", fields);
         return ResponseEntity.badRequest()
-                .contentType(MediaType.APPLICATION_PROBLEM_JSON)
+                .contentType(MediaType.APPLICATION_JSON)
                 .body(pd);
     }
 
@@ -107,7 +107,7 @@ public class GlobalExceptionHandler {
         );
 
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-                .contentType(MediaType.APPLICATION_PROBLEM_JSON)
+                .contentType(MediaType.APPLICATION_JSON)
                 .body(pd);
     }
 

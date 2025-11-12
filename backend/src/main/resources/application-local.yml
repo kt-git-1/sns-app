@@ -8,3 +8,5 @@ logging:
     org.springframework.jdbc.core: INFO
     org.hibernate.SQL: INFO
     org.hibernate.orm.jdbc.bind: INFO
+    org.springframework.beans.factory: TRACE
+    com.example.backend: DEBUG
