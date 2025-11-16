@@ -1,5 +1,6 @@
 package com.example.backend.security;
 
+import com.example.backend.entity.User;
 import com.example.backend.repository.UserRepository;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jws;
@@ -60,14 +61,19 @@ public class JwtAuthFilter extends OncePerRequestFilter {
                 // ③ 必要に応じてDBからユーザーや権限を取得
                 var userOpt = userRepository.findById(userId);
                 if (userOpt.isPresent()) {
+
+                    User user = userOpt.get();
+                    AuthUser authUser = new AuthUser(user.getId(), user.getUsername());
+
                     // ここでは固定でROLE_USERを付与（必要ならUserのロールから動的に作る）
                     var authorities = List.of(new SimpleGrantedAuthority("ROLE_USER"));
 
                     var authentication = new UsernamePasswordAuthenticationToken(
-                            userOpt.get().getUsername(),     // principal（ここではusername）
+                            authUser,                        // principal（ここではusername）
                             null,                            // credentials は持たない
                             authorities                      // 権限
                     );
+
                     authentication.setDetails(new WebAuthenticationDetailsSource().buildDetails(req));
 
                     // ④ 認証をコンテキストにセット
