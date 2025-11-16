@@ -29,7 +29,9 @@ public enum DomainError {
     FOLLOW_SELF_NOT_ALLOWED("FOLLOW_SELF_NOT_ALLOWED", HttpStatus.UNPROCESSABLE_ENTITY),
 
     // 投稿
-    POST_TOO_LONG("POST_TOO_LONG", HttpStatus.UNPROCESSABLE_ENTITY);
+    POST_TOO_LONG("POST_TOO_LONG", HttpStatus.UNPROCESSABLE_ENTITY),
+    POST_NOT_FOUND("POST_NOT_FOUND", HttpStatus.NOT_FOUND),
+    POST_FORBIDDEN_ACTION("POST_FORBIDDEN_ACTION", HttpStatus.FORBIDDEN);
 
     private final String code;
     private final HttpStatus status;
