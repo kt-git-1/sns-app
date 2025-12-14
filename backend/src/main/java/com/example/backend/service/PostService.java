@@ -57,8 +57,8 @@ public class PostService {
             Long postId,
             @AuthenticationPrincipal AuthUser user
     ) {
-        Post post = posts.findByPostId(postId)
-                .orElseThrow(PostNotFoundException::new);
+        Post post = posts.findById(postId)
+                         .orElseThrow(PostNotFoundException::new);
 
         if(!post.getUser().getId().equals(user.id())) {
             throw new PostActionForbiddenException();
